@@ -91,7 +91,8 @@ namespace ExpediaTest
             result = target.getRoomOccupant(25);
             Assert.AreEqual("Empty room", result);
 
-            mocks.VerifyAll();
+            mocks.VerifyAll();
+
         }
         [TestMethod()]
         public void TestThatHotelDoesGetRoomCountFromDatabase()

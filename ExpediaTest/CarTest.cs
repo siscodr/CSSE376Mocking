@@ -50,5 +50,48 @@ namespace ExpediaTest
 		{
 			new Car(-5);
 		}
+
+        [TestMethod]
+        public void TestGetCarLocation()
+        {
+            IDatabase mockDB = mocks.StrictMock<IDatabase>();
+
+            Expect.Call(mockDB.getCarLocation(22)).Return("China Town");
+            Expect.Call(mockDB.getCarLocation(103)).Return("Terre Haute");
+
+            mocks.ReplayAll();
+
+            Car target = new Car(10);
+
+            target.Database = mockDB;
+
+            String result;
+
+            result = target.getCarLocation(22);
+            Assert.AreEqual("China Town", result);
+
+            result = target.getCarLocation(103);
+            Assert.AreEqual("Terre Haute", result);
+
+            mocks.VerifyAll();
+        }
+
+        [TestMethod]
+        public void TestMileage()
+        {
+            IDatabase mockDatabase = mocks.StrictMock<IDatabase>();
+
+            Expect.Call(mockDatabase.Miles).PropertyBehavior();
+
+            mocks.ReplayAll();
+
+            mockDatabase.Miles = 5000;
+
+            var target = ObjectMother.BMW();
+            target.Database = mockDatabase;
+
+            int mileage = target.Mileage;
+            Assert.AreEqual(5000, mileage);
+        }
 	}
 }
